@@ -13,7 +13,7 @@
 
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyDgWB43rlJlOG17r1HVur1WW0U_TOcb6fM" />
+            android:value="TODO - use a working key" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
