@@ -71,21 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
         SwitchCompat publishSwitch = findViewById(R.id.publish_switch);
 
-        // Build the message that is going to be published. This contains the device name and a
-        // UUID.
         mPubMessage = DeviceMessage.newNearbyMessage();
 
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(final Message message) {
-                // Called when a new message is found.
                 mNearbyDevicesArrayAdapter.add(
                         DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
 
             @Override
             public void onLost(final Message message) {
-                // Called when a message is no longer detectable nearby.
                 mNearbyDevicesArrayAdapter.remove(
                         DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
@@ -140,10 +136,6 @@ public class MainActivity extends AppCompatActivity {
         Nearby.getMessagesClient(this).subscribe(mMessageListener, options);
     }
 
-    /**
-     * Publishes a message to nearby devices and updates the UI if the publication either fails or
-     * TTLs.
-     */
     private void publish() {
         Log.i(TAG, "Publishing");
         PublishOptions options = new PublishOptions.Builder()
@@ -164,17 +156,11 @@ public class MainActivity extends AppCompatActivity {
         Nearby.getMessagesClient(this).publish(mPubMessage, options);
     }
 
-    /**
-     * Stops subscribing to messages from nearby devices.
-     */
     private void unsubscribe() {
         Log.i(TAG, "Unsubscribing.");
         Nearby.getMessagesClient(this).unsubscribe(mMessageListener);
     }
 
-    /**
-     * Stops publishing message to nearby devices.
-     */
     private void unpublish() {
         Log.i(TAG, "Unpublishing.");
         Nearby.getMessagesClient(this).unpublish(mPubMessage);
